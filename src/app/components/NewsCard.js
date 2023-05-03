@@ -69,7 +69,10 @@ function NewsCard({data, isBookmark}) {
       />
       <Text>{data?.content}</Text>
       <View style={styles.bottomCard}>
-        <Text>{`Source: ${data?.source?.name}`}</Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.sourceText}>{`Source: ${data?.source?.name}`}</Text>
         <Text>{`Published At: ${getFullDate(data?.publishedAt)}`}</Text>
       </View>
       {isBookmark ? (
@@ -105,6 +108,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 8,
     zIndex: 10,
+  },
+  sourceText: {
+    width: width / 2.2,
   },
   iconButton: {
     position: 'absolute',

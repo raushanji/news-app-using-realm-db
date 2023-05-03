@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, Text} from 'react-native';
 import NewsCard from '../components/NewsCard';
 import {getApiCall} from '../../services/ApiCall';
 import {TOP_HEADLINES} from '../../services/ApiEndpoint';
@@ -8,7 +8,7 @@ const Headline = props => {
   const [headlines, setHeadlines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pageNo, setPageNo] = useState(1);
-  const pageSize = 2;
+  const pageSize = 5;
 
   const getHeadlines = async page => {
     let url = TOP_HEADLINES + `&pageSize=${pageSize}&page=${page}`;
@@ -47,6 +47,10 @@ const Headline = props => {
     return <View style={styles.itemSeparator}></View>;
   };
 
+  const renderEmptyComponent = () => {
+    return <Text style={styles.emptyText}>{'Wait news is loading...'}</Text>;
+  };
+
   return (
     <View style={styles.body}>
       <FlatList
@@ -57,6 +61,7 @@ const Headline = props => {
         onRefresh={onRefreshCall}
         refreshing={isLoading}
         onEndReached={onLoadMore}
+        ListEmptyComponent={renderEmptyComponent}
       />
     </View>
   );
@@ -70,6 +75,12 @@ const styles = StyleSheet.create({
   },
   itemSeparator: {
     height: 10,
+  },
+  emptyText: {
+    margin: 20,
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

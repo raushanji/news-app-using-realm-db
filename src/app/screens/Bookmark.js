@@ -20,6 +20,14 @@ function Bookmark() {
     return <View style={styles.itemSeparator}></View>;
   };
 
+  const renderEmptyComponent = () => {
+    return (
+      <Text style={styles.emptyText}>
+        {'No news has been added to your bookmark!'}
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.body}>
       <FlatList
@@ -27,6 +35,7 @@ function Bookmark() {
         renderItem={renderRowItem}
         keyExtractor={(item, index) => index.toString()}
         ItemSeparatorComponent={renderItemSeparator}
+        ListEmptyComponent={renderEmptyComponent}
       />
     </View>
   );
@@ -40,6 +49,12 @@ const styles = StyleSheet.create({
   },
   itemSeparator: {
     height: 10,
+  },
+  emptyText: {
+    margin: 20,
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
